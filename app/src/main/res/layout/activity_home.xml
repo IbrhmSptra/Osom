@@ -109,7 +109,7 @@
         app:layout_constraintTop_toBottomOf="@+id/logout" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/model"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_155sdp"
         android:layout_marginTop="@dimen/_30sdp"
@@ -128,9 +128,9 @@
         android:textColor="@color/paragraph"
         android:textSize="@dimen/_10ssp"
         android:layout_marginTop="@dimen/_10sdp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        app:layout_constraintEnd_toEndOf="@+id/model"
+        app:layout_constraintStart_toStartOf="@+id/model"
+        app:layout_constraintTop_toBottomOf="@+id/model" />
 
     <TextView
         android:id="@+id/textView12"
@@ -151,7 +151,7 @@
         android:layout_height="@dimen/_35sdp"
         android:background="@drawable/etshape"
         android:hint="Insert Your Coin"
-        android:inputType="textPassword"
+        android:inputType="number"
         android:paddingStart="@dimen/_10sdp"
         android:paddingEnd="@dimen/_10sdp"
         android:singleLine="true"
@@ -161,12 +161,12 @@
         android:layout_marginStart="@dimen/_85sdp"
         android:layout_marginEnd="@dimen/_85sdp"
         android:layout_marginBottom="@dimen/_60sdp"
-        app:layout_constraintBottom_toTopOf="@+id/loginbtn"
+        app:layout_constraintBottom_toTopOf="@+id/playbtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/loginbtn"
+        android:id="@+id/playbtn"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
         android:layout_marginStart="@dimen/_100sdp"
