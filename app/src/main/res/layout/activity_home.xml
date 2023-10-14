@@ -120,6 +120,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
     <TextView
+        android:id="@+id/msghome"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppinmedium"
