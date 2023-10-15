@@ -2,14 +2,14 @@
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:drawable="@drawable/paper"
-        android:duration="300"
+        android:duration="250"
         />
     <item
         android:drawable="@drawable/rock"
-        android:duration="300"
+        android:duration="250"
         />
     <item
         android:drawable="@drawable/scissor"
-        android:duration="300"
+        android:duration="250"
         />
 </animation-list>

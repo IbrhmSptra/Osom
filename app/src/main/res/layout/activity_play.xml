@@ -49,7 +49,7 @@
     </androidx.cardview.widget.CardView>
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/modelexpression"
         android:layout_width="@dimen/_80sdp"
         android:layout_height="@dimen/_80sdp"
         android:layout_marginTop="@dimen/_10sdp"
@@ -64,8 +64,8 @@
         android:layout_height="@dimen/_70sdp"
         android:src="@drawable/osompicker"
         android:layout_marginStart="@dimen/_10sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-        app:layout_constraintStart_toEndOf="@+id/imageView5"
+        app:layout_constraintBottom_toBottomOf="@+id/modelexpression"
+        app:layout_constraintStart_toEndOf="@+id/modelexpression"
         app:layout_constraintTop_toTopOf="@+id/cardView3" />
 
     <ImageView
@@ -76,7 +76,7 @@
         android:src="@drawable/versus"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        app:layout_constraintTop_toBottomOf="@+id/modelexpression" />
 
     <TextView
         android:id="@+id/osomscore"
@@ -144,7 +144,19 @@
         app:layout_constraintStart_toStartOf="@+id/cardView4"
         app:layout_constraintTop_toBottomOf="@+id/cardView4" />
 
+    <ImageView
+        android:id="@+id/playerpick"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_70sdp"
+        android:src="@drawable/chooserock"
+        android:visibility="gone"
+        android:layout_marginEnd="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+        app:layout_constraintEnd_toStartOf="@+id/imageView8"
+        app:layout_constraintTop_toTopOf="@+id/cardView4" />
+
     <TextView
+        android:id="@+id/playerturn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppinmedium"
@@ -186,5 +198,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/paper"
         app:layout_constraintTop_toTopOf="@+id/paper" />
+
+    <ImageView
+        android:id="@+id/notif"
+        android:layout_width="@dimen/_90sdp"
+        android:layout_height="@dimen/_90sdp"
+        android:src="@drawable/win"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
