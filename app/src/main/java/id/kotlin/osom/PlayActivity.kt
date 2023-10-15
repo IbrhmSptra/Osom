@@ -1,30 +1,47 @@
 package id.kotlin.osom
 
 import android.animation.ObjectAnimator
+import android.app.Dialog
+import android.content.Context
+import android.content.Intent
+import android.graphics.Color
 import android.graphics.drawable.AnimationDrawable
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.view.View
+import android.view.Window
 import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
+import android.widget.Button
 import id.kotlin.osom.databinding.ActivityPlayBinding
+import id.kotlin.osom.databinding.ModalBinding
 
 class PlayActivity : AppCompatActivity() {
     lateinit var binding : ActivityPlayBinding
-    lateinit var settime : CountDownTimer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         var scoreplayer = 0
         var scoreosom = 0
+        var multiplier = 2
         var notif = "none"
 
 
         super.onCreate(savedInstanceState)
+        //init
         binding = ActivityPlayBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        // sync the multiplier and score
+        binding.playerscore.text = scoreplayer.toString()
+        binding.osomscore.text = scoreosom.toString()
+        binding.multiplier.text = "x$multiplier"
+
+
 
         // START GIF FOR OSOM PICK
         val gifthingking = binding.osomthinking.drawable as AnimationDrawable
@@ -79,7 +96,9 @@ class PlayActivity : AppCompatActivity() {
             binding.scissor.visibility = View.GONE
             binding.playerturn.visibility = View.INVISIBLE
             //show notif
+            val popup_anim = AnimationUtils.loadAnimation(this, R.anim.popup_anim)
             binding.notif.visibility = View.VISIBLE
+            binding.notif.startAnimation(popup_anim)
 
             //show players pick
             binding.playerpick.setImageResource(R.drawable.chooserock)
@@ -103,6 +122,37 @@ class PlayActivity : AppCompatActivity() {
                 binding.playerpick.visibility = View.GONE
 
                 notif = "none"
+
+                //dialog show
+                if(scoreosom == 3 || scoreplayer == 3) {
+                    val dialog = Dialog(this)
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                    dialog.setCancelable(false)
+                    dialog.setContentView(R.layout.modal)
+                    dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    val btnmore: Button = dialog.findViewById(R.id.more)
+                    val btntake: Button = dialog.findViewById(R.id.take)
+                    multiplier ++
+                    btnmore.text = "x$multiplier"
+                    btnmore.setOnClickListener {
+                        scoreplayer = 0
+                        scoreosom = 0
+                        binding.playerscore.text = scoreplayer.toString()
+                        binding.osomscore.text = scoreosom.toString()
+                        binding.multiplier.text = "x$multiplier"
+                        dialog.dismiss()
+                    }
+                    btntake.setOnClickListener {
+                        scoreplayer = 0
+                        scoreosom = 0
+                        multiplier = 2
+                        val intent = Intent(this, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                    dialog.show()
+                }
+
 
             },3000)
 
@@ -150,7 +200,9 @@ class PlayActivity : AppCompatActivity() {
             binding.scissor.visibility = View.GONE
             binding.playerturn.visibility = View.INVISIBLE
             //show notif
+            val popup_anim = AnimationUtils.loadAnimation(this, R.anim.popup_anim)
             binding.notif.visibility = View.VISIBLE
+            binding.notif.startAnimation(popup_anim)
 
             //show players pick
             binding.playerpick.setImageResource(R.drawable.choosepaper)
@@ -174,6 +226,36 @@ class PlayActivity : AppCompatActivity() {
                 binding.playerpick.visibility = View.GONE
 
                 notif = "none"
+
+                //DIALOG SHOW
+                if(scoreosom == 3 || scoreplayer == 3) {
+                    val dialog = Dialog(this)
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                    dialog.setCancelable(false)
+                    dialog.setContentView(R.layout.modal)
+                    dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    val btnmore: Button = dialog.findViewById(R.id.more)
+                    val btntake: Button = dialog.findViewById(R.id.take)
+                    multiplier ++
+                    btnmore.text = "x$multiplier"
+                    btnmore.setOnClickListener {
+                        scoreplayer = 0
+                        scoreosom = 0
+                        binding.playerscore.text = scoreplayer.toString()
+                        binding.osomscore.text = scoreosom.toString()
+                        binding.multiplier.text = "x$multiplier"
+                        dialog.dismiss()
+                    }
+                    btntake.setOnClickListener {
+                        scoreplayer = 0
+                        scoreosom = 0
+                        multiplier = 2
+                        val intent = Intent(this, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                    dialog.show()
+                }
 
             },3000)
 
@@ -221,7 +303,9 @@ class PlayActivity : AppCompatActivity() {
             binding.scissor.visibility = View.GONE
             binding.playerturn.visibility = View.INVISIBLE
             //show notif
+            val popup_anim = AnimationUtils.loadAnimation(this, R.anim.popup_anim)
             binding.notif.visibility = View.VISIBLE
+            binding.notif.startAnimation(popup_anim)
 
             //show players pick
             binding.playerpick.setImageResource(R.drawable.choosescissors)
@@ -246,6 +330,36 @@ class PlayActivity : AppCompatActivity() {
 
                 notif = "none"
 
+                //DIALOG SHOW
+                if(scoreosom == 3 || scoreplayer == 3) {
+                    val dialog = Dialog(this)
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                    dialog.setCancelable(false)
+                    dialog.setContentView(R.layout.modal)
+                    dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    val btnmore: Button = dialog.findViewById(R.id.more)
+                    val btntake: Button = dialog.findViewById(R.id.take)
+                    multiplier ++
+                    btnmore.text = "x$multiplier"
+                    btnmore.setOnClickListener {
+                        scoreplayer = 0
+                        scoreosom = 0
+                        binding.playerscore.text = scoreplayer.toString()
+                        binding.osomscore.text = scoreosom.toString()
+                        binding.multiplier.text = "x$multiplier"
+                        dialog.dismiss()
+                    }
+                    btntake.setOnClickListener {
+                        scoreplayer = 0
+                        scoreosom = 0
+                        multiplier = 2
+                        val intent = Intent(this, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                    dialog.show()
+                }
+
             },3000)
 
             binding.osomscore.text = scoreosom.toString()
@@ -269,5 +383,6 @@ class PlayActivity : AppCompatActivity() {
         var rand = (1..3).random()
         return rand
     }
+
 
 }
