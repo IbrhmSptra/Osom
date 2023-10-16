@@ -27,6 +27,7 @@ class PlayActivity : AppCompatActivity() {
         var scoreplayer = 0
         var scoreosom = 0
         var multiplier = 2
+        var round = 1
         var notif = "none"
 
 
@@ -123,16 +124,52 @@ class PlayActivity : AppCompatActivity() {
 
                 notif = "none"
 
-                //dialog show
-                if(scoreosom == 3 || scoreplayer == 3) {
-                    val dialog = Dialog(this)
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                    dialog.setCancelable(false)
-                    dialog.setContentView(R.layout.modal)
-                    dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                    val btnmore: Button = dialog.findViewById(R.id.more)
-                    val btntake: Button = dialog.findViewById(R.id.take)
-                    multiplier ++
+                //lose dialog show
+                if(scoreosom == 3) {
+                    val dialogL = Dialog(this)
+                    dialogL.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                    dialogL.setCancelable(false)
+                    dialogL.setContentView(R.layout.modallose)
+                    dialogL.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    val btngive: Button = dialogL.findViewById(R.id.give)
+                    btngive.setOnClickListener {
+                        //reset
+                        scoreplayer = 0
+                        scoreosom = 0
+                        round = 1
+                        multiplier = 2
+                        val intent = Intent(this, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                    dialogL.show()
+                }
+
+
+
+                //win dialog show
+                if(scoreplayer == 3) {
+                    val dialogW = Dialog(this)
+                    dialogW.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                    dialogW.setCancelable(false)
+                    dialogW.setContentView(R.layout.modal)
+                    dialogW.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    val btnmore: Button = dialogW.findViewById(R.id.more)
+                    val btntake: Button = dialogW.findViewById(R.id.take)
+                    //Multiplier Algorithm
+                    round++
+                    if (round <4){
+                        multiplier ++
+                    }
+                    if (round >=4 && round<7){
+                        multiplier +=2
+                    }
+                    if (round >=7 && round<10){
+                        multiplier+=4
+                    }
+                    if (round >=10){
+                        multiplier+=6
+                    }
                     btnmore.text = "x$multiplier"
                     btnmore.setOnClickListener {
                         scoreplayer = 0
@@ -140,17 +177,19 @@ class PlayActivity : AppCompatActivity() {
                         binding.playerscore.text = scoreplayer.toString()
                         binding.osomscore.text = scoreosom.toString()
                         binding.multiplier.text = "x$multiplier"
-                        dialog.dismiss()
+                        dialogW.dismiss()
                     }
                     btntake.setOnClickListener {
+                        //reset
                         scoreplayer = 0
                         scoreosom = 0
+                        round = 1
                         multiplier = 2
                         val intent = Intent(this, HomeActivity::class.java)
                         startActivity(intent)
                         finish()
                     }
-                    dialog.show()
+                    dialogW.show()
                 }
 
 
@@ -227,16 +266,50 @@ class PlayActivity : AppCompatActivity() {
 
                 notif = "none"
 
-                //DIALOG SHOW
-                if(scoreosom == 3 || scoreplayer == 3) {
-                    val dialog = Dialog(this)
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                    dialog.setCancelable(false)
-                    dialog.setContentView(R.layout.modal)
-                    dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                    val btnmore: Button = dialog.findViewById(R.id.more)
-                    val btntake: Button = dialog.findViewById(R.id.take)
-                    multiplier ++
+                //lose dialog show
+                if(scoreosom == 3) {
+                    val dialogL = Dialog(this)
+                    dialogL.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                    dialogL.setCancelable(false)
+                    dialogL.setContentView(R.layout.modallose)
+                    dialogL.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    val btngive: Button = dialogL.findViewById(R.id.give)
+                    btngive.setOnClickListener {
+                        //reset
+                        scoreplayer = 0
+                        scoreosom = 0
+                        round = 1
+                        multiplier = 2
+                        val intent = Intent(this, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                    dialogL.show()
+                }
+
+                //win dialog show
+                if(scoreplayer == 3) {
+                    val dialogW = Dialog(this)
+                    dialogW.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                    dialogW.setCancelable(false)
+                    dialogW.setContentView(R.layout.modal)
+                    dialogW.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    val btnmore: Button = dialogW.findViewById(R.id.more)
+                    val btntake: Button = dialogW.findViewById(R.id.take)
+                    //Multiplier Algorithm
+                    round++
+                    if (round <4){
+                        multiplier ++
+                    }
+                    if (round >=4 && round<7){
+                        multiplier +=2
+                    }
+                    if (round >=7 && round<10){
+                        multiplier+=4
+                    }
+                    if (round >=10){
+                        multiplier+=6
+                    }
                     btnmore.text = "x$multiplier"
                     btnmore.setOnClickListener {
                         scoreplayer = 0
@@ -244,17 +317,19 @@ class PlayActivity : AppCompatActivity() {
                         binding.playerscore.text = scoreplayer.toString()
                         binding.osomscore.text = scoreosom.toString()
                         binding.multiplier.text = "x$multiplier"
-                        dialog.dismiss()
+                        dialogW.dismiss()
                     }
                     btntake.setOnClickListener {
+                        //reset
                         scoreplayer = 0
                         scoreosom = 0
+                        round = 1
                         multiplier = 2
                         val intent = Intent(this, HomeActivity::class.java)
                         startActivity(intent)
                         finish()
                     }
-                    dialog.show()
+                    dialogW.show()
                 }
 
             },3000)
@@ -330,16 +405,50 @@ class PlayActivity : AppCompatActivity() {
 
                 notif = "none"
 
-                //DIALOG SHOW
-                if(scoreosom == 3 || scoreplayer == 3) {
-                    val dialog = Dialog(this)
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                    dialog.setCancelable(false)
-                    dialog.setContentView(R.layout.modal)
-                    dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                    val btnmore: Button = dialog.findViewById(R.id.more)
-                    val btntake: Button = dialog.findViewById(R.id.take)
-                    multiplier ++
+                //lose dialog show
+                if(scoreosom == 3) {
+                    val dialogL = Dialog(this)
+                    dialogL.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                    dialogL.setCancelable(false)
+                    dialogL.setContentView(R.layout.modallose)
+                    dialogL.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    val btngive: Button = dialogL.findViewById(R.id.give)
+                    btngive.setOnClickListener {
+                        //reset
+                        scoreplayer = 0
+                        scoreosom = 0
+                        round = 1
+                        multiplier = 2
+                        val intent = Intent(this, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                    dialogL.show()
+                }
+
+                //win dialog show
+                if(scoreplayer == 3) {
+                    val dialogW = Dialog(this)
+                    dialogW.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                    dialogW.setCancelable(false)
+                    dialogW.setContentView(R.layout.modal)
+                    dialogW.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    val btnmore: Button = dialogW.findViewById(R.id.more)
+                    val btntake: Button = dialogW.findViewById(R.id.take)
+                    //Multiplier Algorithm
+                    round++
+                    if (round <4){
+                        multiplier ++
+                    }
+                    if (round >=4 && round<7){
+                        multiplier +=2
+                    }
+                    if (round >=7 && round<10){
+                        multiplier+=4
+                    }
+                    if (round >=10){
+                        multiplier+=6
+                    }
                     btnmore.text = "x$multiplier"
                     btnmore.setOnClickListener {
                         scoreplayer = 0
@@ -347,17 +456,18 @@ class PlayActivity : AppCompatActivity() {
                         binding.playerscore.text = scoreplayer.toString()
                         binding.osomscore.text = scoreosom.toString()
                         binding.multiplier.text = "x$multiplier"
-                        dialog.dismiss()
+                        dialogW.dismiss()
                     }
                     btntake.setOnClickListener {
                         scoreplayer = 0
                         scoreosom = 0
+                        round = 1
                         multiplier = 2
                         val intent = Intent(this, HomeActivity::class.java)
                         startActivity(intent)
                         finish()
                     }
-                    dialog.show()
+                    dialogW.show()
                 }
 
             },3000)
