@@ -84,7 +84,7 @@
                 android:layout_marginStart="@dimen/_3sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:fontFamily="@font/poppinmedium"
-                android:text="500rb"
+                android:text=""
                 android:textAlignment="center"
                 android:textColor="@color/headings"
                 android:textSize="@dimen/_10ssp"

@@ -61,6 +61,9 @@ class RegisterActivity : AppCompatActivity() {
                     binding.regpassword.error = "Not The Same"
                     binding.regrepassword.error = "Not The Same"
                 }
+                else if(password.length<6){
+                    binding.regpassword.error = "Must be 6 or more character length"
+                }
                 //validasi email sudah ada
                 else if (!emaildb.isNullOrEmpty()){
                     binding.regemail.error = "Email Already Used"
@@ -81,6 +84,7 @@ class RegisterActivity : AppCompatActivity() {
         binding.loginhere.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+
         }
     }
 

@@ -111,17 +111,20 @@ class PlayActivity : AppCompatActivity() {
                 binding.paper.visibility = View.VISIBLE
                 binding.scissor.visibility = View.VISIBLE
                 binding.playerturn.visibility = View.VISIBLE
+
                 //hide notif
                 binding.notif.visibility = View.INVISIBLE
+
                 //osom rethingking
                 binding.modelexpression.setImageResource(R.drawable.thinkingmodel)
                 binding.osomthinking.setImageResource(R.drawable.osompicker)
                 val gif = binding.osomthinking.drawable as AnimationDrawable
                 gif.start()
                 gif.isOneShot = false
+
                 // hide players pick
                 binding.playerpick.visibility = View.GONE
-
+                //Reset
                 notif = "none"
 
                 //lose dialog show
@@ -238,6 +241,7 @@ class PlayActivity : AppCompatActivity() {
             binding.paper.visibility = View.GONE
             binding.scissor.visibility = View.GONE
             binding.playerturn.visibility = View.INVISIBLE
+
             //show notif
             val popup_anim = AnimationUtils.loadAnimation(this, R.anim.popup_anim)
             binding.notif.visibility = View.VISIBLE
@@ -253,17 +257,21 @@ class PlayActivity : AppCompatActivity() {
                 binding.paper.visibility = View.VISIBLE
                 binding.scissor.visibility = View.VISIBLE
                 binding.playerturn.visibility = View.VISIBLE
+
                 //hide notif
                 binding.notif.visibility = View.INVISIBLE
+
                 //osom rethingking
                 binding.modelexpression.setImageResource(R.drawable.thinkingmodel)
                 binding.osomthinking.setImageResource(R.drawable.osompicker)
                 val gif = binding.osomthinking.drawable as AnimationDrawable
                 gif.start()
                 gif.isOneShot = false
+
                 //hide playerpick
                 binding.playerpick.visibility = View.GONE
 
+                //reset
                 notif = "none"
 
                 //lose dialog show
@@ -377,6 +385,7 @@ class PlayActivity : AppCompatActivity() {
             binding.paper.visibility = View.GONE
             binding.scissor.visibility = View.GONE
             binding.playerturn.visibility = View.INVISIBLE
+
             //show notif
             val popup_anim = AnimationUtils.loadAnimation(this, R.anim.popup_anim)
             binding.notif.visibility = View.VISIBLE
@@ -392,17 +401,21 @@ class PlayActivity : AppCompatActivity() {
                 binding.paper.visibility = View.VISIBLE
                 binding.scissor.visibility = View.VISIBLE
                 binding.playerturn.visibility = View.VISIBLE
+
                 //hide notif
                 binding.notif.visibility = View.INVISIBLE
+
                 //osom rethingking
                 binding.modelexpression.setImageResource(R.drawable.thinkingmodel)
                 binding.osomthinking.setImageResource(R.drawable.osompicker)
                 val gif = binding.osomthinking.drawable as AnimationDrawable
                 gif.start()
                 gif.isOneShot = false
+
                 //hide players pick
                 binding.playerpick.visibility = View.GONE
 
+                //reset
                 notif = "none"
 
                 //lose dialog show
