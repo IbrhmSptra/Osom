@@ -11,12 +11,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
 import android.widget.Button
+import android.widget.TextView
 import id.kotlin.osom.databinding.ActivityPlayBinding
 import id.kotlin.osom.databinding.ModalBinding
 
@@ -41,8 +43,6 @@ class PlayActivity : AppCompatActivity() {
         binding.playerscore.text = scoreplayer.toString()
         binding.osomscore.text = scoreosom.toString()
         binding.multiplier.text = "x$multiplier"
-
-
 
         // START GIF FOR OSOM PICK
         val gifthingking = binding.osomthinking.drawable as AnimationDrawable
@@ -96,6 +96,7 @@ class PlayActivity : AppCompatActivity() {
             binding.paper.visibility = View.GONE
             binding.scissor.visibility = View.GONE
             binding.playerturn.visibility = View.INVISIBLE
+
             //show notif
             val popup_anim = AnimationUtils.loadAnimation(this, R.anim.popup_anim)
             binding.notif.visibility = View.VISIBLE
@@ -180,6 +181,12 @@ class PlayActivity : AppCompatActivity() {
                         binding.playerscore.text = scoreplayer.toString()
                         binding.osomscore.text = scoreosom.toString()
                         binding.multiplier.text = "x$multiplier"
+                        if (round>=4){
+                            binding.fire.visibility = View.VISIBLE
+                        }
+                        if (round>=7){
+                            startblinktext(binding.multiplier)
+                        }
                         dialogW.dismiss()
                     }
                     btntake.setOnClickListener {
@@ -236,6 +243,7 @@ class PlayActivity : AppCompatActivity() {
                 2 -> binding.osomthinking.setImageResource(R.drawable.paper)
                 3 -> binding.osomthinking.setImageResource(R.drawable.scissor)
             }
+
             //remove player pick
             binding.rock.visibility = View.GONE
             binding.paper.visibility = View.GONE
@@ -267,6 +275,7 @@ class PlayActivity : AppCompatActivity() {
                 val gif = binding.osomthinking.drawable as AnimationDrawable
                 gif.start()
                 gif.isOneShot = false
+
 
                 //hide playerpick
                 binding.playerpick.visibility = View.GONE
@@ -325,6 +334,12 @@ class PlayActivity : AppCompatActivity() {
                         binding.playerscore.text = scoreplayer.toString()
                         binding.osomscore.text = scoreosom.toString()
                         binding.multiplier.text = "x$multiplier"
+                        if (round>=4){
+                            binding.fire.visibility = View.VISIBLE
+                        }
+                        if (round>=7){
+                            startblinktext(binding.multiplier)
+                        }
                         dialogW.dismiss()
                     }
                     btntake.setOnClickListener {
@@ -469,9 +484,16 @@ class PlayActivity : AppCompatActivity() {
                         binding.playerscore.text = scoreplayer.toString()
                         binding.osomscore.text = scoreosom.toString()
                         binding.multiplier.text = "x$multiplier"
+                        if (round>=4){
+                            binding.fire.visibility = View.VISIBLE
+                        }
+                        if (round>=7){
+                            startblinktext(binding.multiplier)
+                        }
                         dialogW.dismiss()
                     }
                     btntake.setOnClickListener {
+                        //reset
                         scoreplayer = 0
                         scoreosom = 0
                         round = 1
@@ -507,5 +529,19 @@ class PlayActivity : AppCompatActivity() {
         return rand
     }
 
-
+    fun startblinktext(textView: TextView) {
+        val colors = intArrayOf(
+            Color.parseColor("#D8EEFE"), Color.parseColor("#094067"))
+        var colorIndex = 0
+        val handler = Handler()
+        val runnable = object : Runnable {
+            override fun run() {
+                textView.setTextColor(colors[colorIndex])
+                colorIndex = (colorIndex + 1) % colors.size
+                handler.postDelayed(this, 300) // Ganti warna setiap 300ms
+            }
+        }
+        textView.setShadowLayer(2f, 1f, 1f, Color.BLACK)
+        handler.post(runnable)
+    }
 }

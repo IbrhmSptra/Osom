@@ -34,70 +34,162 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <LinearLayout
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
+
                 <TextView
+                    android:id="@+id/textView15"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:text="How To Play"
-                    android:textSize="@dimen/_14ssp"
-                    android:textColor="@color/headings"
                     android:fontFamily="@font/poppinsemibold"
-                    android:layout_marginTop="@dimen/_15sdp"/>
+                    android:text="How To Play"
+                    android:textAlignment="center"
+                    android:textColor="@color/headings"
+                    android:textSize="@dimen/_16ssp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:paddingEnd="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:text="1.\tBet your coin before you play the game"
-                    android:textSize="@dimen/_10ssp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
                     android:fontFamily="@font/poppinmedium"
-                    android:textColor="@color/headings"/>
+                    android:text="1. "
+                    android:textColor="@color/headings"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/textView17"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:paddingEnd="@dimen/_10sdp"
-                    android:text="2.\tJust like a normal rock paper scissors game, \t\tchoose your pick and try to defeat Osom"
-                    android:textSize="@dimen/_10ssp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
                     android:fontFamily="@font/poppinmedium"
-                    android:textColor="@color/headings"/>
+                    android:text="Bet your coin before you play the game"
+                    android:textColor="@color/headings"
+                    android:textSize="@dimen/_11ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView16"
+                    app:layout_constraintTop_toTopOf="@+id/textView16"
+                    app:layout_constraintVertical_bias="0.0" />
+
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/textView18"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:paddingEnd="@dimen/_10sdp"
-                    android:text="3.\tThe game will be best of 3, if you win your \n\t\tcoin will be multiplied and you must choose \t\twhether you want to continue to higher \n\t\tmultiplier and try to defeat Osom again or \n\t\ttake the coin"
-                    android:textSize="@dimen/_10ssp"
                     android:fontFamily="@font/poppinmedium"
-                    android:textColor="@color/headings"/>
+                    android:text="2."
+                    android:textColor="@color/headings"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintStart_toStartOf="@+id/textView16"
+                    app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/textView19"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:paddingEnd="@dimen/_10sdp"
-                    android:text="4.\tThe higher you continue the game the \n\t\thigher multiplier will be"
-                    android:textSize="@dimen/_10ssp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
                     android:fontFamily="@font/poppinmedium"
-                    android:textColor="@color/headings"/>
+                    android:text="Just like a normal rock paper scissors game, choose your pick and try to defeat Osom"
+                    android:textColor="@color/headings"
+                    android:textSize="@dimen/_11ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView18"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView18"
+                    app:layout_constraintTop_toTopOf="@+id/textView18"
+                    app:layout_constraintVertical_bias="0.0" />
+
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/textView20"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:paddingEnd="@dimen/_10sdp"
-                    android:text="5.\tAnd if you lose you get nothing and Osom \n\t\twill takes your coin"
-                    android:textSize="@dimen/_10ssp"
                     android:fontFamily="@font/poppinmedium"
-                    android:textColor="@color/headings"/>
-            </LinearLayout>
+                    android:text="3."
+                    android:textColor="@color/headings"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintStart_toStartOf="@+id/textView18"
+                    app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:fontFamily="@font/poppinmedium"
+                    android:text="The game will be best of 3, if you win your coin will be multiplied and you must choose whether you want to continue to higher multiplier and try to defeat Osom again or take the coin"
+                    android:textColor="@color/headings"
+                    android:textSize="@dimen/_11ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView20"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView20"
+                    app:layout_constraintTop_toTopOf="@+id/textView20"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppinmedium"
+                    android:text="4."
+                    android:textColor="@color/headings"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintStart_toStartOf="@+id/textView20"
+                    app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:fontFamily="@font/poppinmedium"
+                    android:text="The higher you continue the game the higher multiplier will be"
+                    android:textColor="@color/headings"
+                    android:textSize="@dimen/_11ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView22"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView22"
+                    app:layout_constraintTop_toTopOf="@+id/textView22"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/textView24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppinmedium"
+                    android:text="5."
+                    android:textColor="@color/headings"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintStart_toStartOf="@+id/textView22"
+                    app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:fontFamily="@font/poppinmedium"
+                    android:text="And if you lose you get nothing and Osom will takes your coin"
+                    android:textColor="@color/headings"
+                    android:textSize="@dimen/_11ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView24"
+                    app:layout_constraintTop_toTopOf="@+id/textView24"
+                    app:layout_constraintVertical_bias="0.0" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
     </androidx.cardview.widget.CardView>
