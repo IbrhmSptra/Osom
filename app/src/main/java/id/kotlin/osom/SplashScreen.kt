@@ -2,6 +2,7 @@ package id.kotlin.osom
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -14,6 +15,11 @@ class SplashScreen : AppCompatActivity() {
         //GET SESSION BY EMAIL FROM SHARED PREFERENCE
         val sharedPreferences = getSharedPreferences("osom", Context.MODE_PRIVATE)
         val session = sharedPreferences.getString("email","").toString()
+
+        //PUT STRING FOR ID OSOM
+        val editor = sharedPreferences.edit()
+        editor.putString("id","1")
+        editor.commit()
 
         Handler().postDelayed({
             if (session.isNullOrEmpty()){

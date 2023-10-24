@@ -8,40 +8,50 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Window
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.widget.Button
 import android.widget.Toast
 import id.kotlin.osom.Auth.API_profile
+import id.kotlin.osom.Auth.dataProfile
 import id.kotlin.osom.databinding.ActivityHomeBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
+import java.lang.Integer.parseInt
 
 class HomeActivity : AppCompatActivity() {
     lateinit var binding: ActivityHomeBinding
+
 
     val apikey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpdWlocG51bG95anV1eWxycW9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc0NDkxNzAsImV4cCI6MjAxMzAyNTE3MH0.A6pRhyENfgjKJnNG9o15J2__ljDtjdEOrxgBnpzR5tE"
     val token = "Bearer $apikey"
     val apiProfile = RetorfitHelper.getInstance().create(API_profile::class.java)
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        //SET SHARED PREFERENCE
+        val sharedPreferences = getSharedPreferences("osom", Context.MODE_PRIVATE)
+        var editor = sharedPreferences.edit()
+        var email = sharedPreferences.getString("email","").toString()
+        val username = sharedPreferences.getString("username","").toString()
+
+
+
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
-        //SET SHARED PREFERENCE
-        val sharedPreferences = getSharedPreferences("osom", Context.MODE_PRIVATE)
-        var editor = sharedPreferences.edit()
+
 
         //GENERATE RANDOM MASSAGE
         randomtext()
 
         //SET USERNAME
-        val username = sharedPreferences.getString("username","").toString()
         binding.username.text = username
 
         //SET COIN
@@ -49,8 +59,17 @@ class HomeActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             val response = apiProfile.getusername(apiKey = apikey, token = token, query = query)
             response.body()?.forEach{
-                binding.coin.text = it.coin?.toString()
+                editor.putInt("coin",it.coin.toString().toInt())
+                editor.commit()
             }
+            binding.coin.text = sharedPreferences.getInt("coin",0).toString()
+        }
+
+        //BUTTON LEADERBOARD
+        binding.leaderboard.setOnClickListener {
+            val intent = Intent(this, leaderboardActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
         // BUTTON LOGOUT
@@ -67,6 +86,7 @@ class HomeActivity : AppCompatActivity() {
                 editor?.clear()
                 editor.remove("email")
                 editor.remove("username")
+                editor.remove("coin")
                 editor.commit()
 
                 // INTENT KE LOGIN
@@ -90,16 +110,40 @@ class HomeActivity : AppCompatActivity() {
         // Start the animation
         animate.start()
 
+
         //PLAY
         binding.playbtn.setOnClickListener {
-
-            //multiply coin cannot be null
+            //bet cannot be null
             if (binding.betingcoin.text.isNullOrEmpty()) {
                 Toast.makeText(this, "Insert Your Coin First", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            val intent = Intent(this, PlayActivity::class.java)
-            startActivity(intent)
+
+            //get coin and bet
+            var bet = binding.betingcoin.text.toString().toInt()
+            var coin = 0
+            val query = "eq.$username"
+            CoroutineScope(Dispatchers.Main).launch {
+                val response = apiProfile.getusername(apiKey = apikey, token = token, query = query)
+                response.body()?.forEach{
+                    coin = it.coin.toString().toInt()
+                }
+                // bet cannot be more than coin
+                if (bet>coin){
+                    Toast.makeText(this@HomeActivity, "Not Enough Coin", Toast.LENGTH_SHORT).show()
+                }else {
+                    //logic coin
+                    coin -= bet
+
+                    val intent = Intent(this@HomeActivity, PlayActivity::class.java)
+                    intent.putExtra("coin", coin)
+                    Log.d("check", "Coin lemparan $coin")
+                    intent.putExtra("bet", bet)
+                    Log.d("check", "bet lemparan $bet")
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(intent)
+                }
+            }
         }
 
         //HELP
@@ -122,7 +166,11 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
+        //SET SHARED PREFERENCE
+        val sharedPreferences = getSharedPreferences("osom", Context.MODE_PRIVATE)
+        binding.coin.text = sharedPreferences.getInt("coin",0).toString()
         super.onResume()
-        randomtext()
     }
+
+
 }

@@ -19,24 +19,41 @@ import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
 import android.widget.Button
 import android.widget.TextView
+import id.kotlin.osom.Auth.API_profile
+import id.kotlin.osom.Auth.dataProfile
 import id.kotlin.osom.databinding.ActivityPlayBinding
 import id.kotlin.osom.databinding.ModalBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import android.os.Vibrator
+import id.kotlin.osom.CoinOsomAPI.API_osom
+import id.kotlin.osom.CoinOsomAPI.dataOsom
 
 class PlayActivity : AppCompatActivity() {
     lateinit var binding : ActivityPlayBinding
 
+    val apikey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpdWlocG51bG95anV1eWxycW9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc0NDkxNzAsImV4cCI6MjAxMzAyNTE3MH0.A6pRhyENfgjKJnNG9o15J2__ljDtjdEOrxgBnpzR5tE"
+    val token = "Bearer $apikey"
+    val apiProfile = RetorfitHelper.getInstance().create(API_profile::class.java)
+    val apiOsom = RetorfitHelper.getInstance().create(API_osom::class.java)
+
+    var scoreplayer = 0
+    var scoreosom = 0
+    var multiplier = 2
+    var round = 1
+    var notif = "none"
+    var coin = 0
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        var scoreplayer = 0
-        var scoreosom = 0
-        var multiplier = 2
-        var round = 1
-        var notif = "none"
-
-
         super.onCreate(savedInstanceState)
         //init
         binding = ActivityPlayBinding.inflate(layoutInflater)
         val view = binding.root
+        coin = intent.getIntExtra("coin",0)
+        var bet = intent.getIntExtra("bet",0)
         setContentView(view)
 
         // sync the multiplier and score
@@ -137,18 +154,13 @@ class PlayActivity : AppCompatActivity() {
                     dialogL.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                     val btngive: Button = dialogL.findViewById(R.id.give)
                     btngive.setOnClickListener {
-                        //reset
-                        scoreplayer = 0
-                        scoreosom = 0
-                        round = 1
-                        multiplier = 2
-                        val intent = Intent(this, HomeActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                        //give coin to osom
+                        coinforosom(bet)
+                        //update coin lose and reset then intent
+                        updateCoin(coin)
                     }
                     dialogL.show()
                 }
-
 
 
                 //win dialog show
@@ -190,14 +202,10 @@ class PlayActivity : AppCompatActivity() {
                         dialogW.dismiss()
                     }
                     btntake.setOnClickListener {
-                        //reset
-                        scoreplayer = 0
-                        scoreosom = 0
-                        round = 1
-                        multiplier = 2
-                        val intent = Intent(this, HomeActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                        //calculating and update
+                        coin = calculating(coin, bet, multiplier)
+                        Log.d("check", "coin after calculate $coin")
+                        updateCoin(coin)
                     }
                     dialogW.show()
                 }
@@ -208,6 +216,8 @@ class PlayActivity : AppCompatActivity() {
             binding.osomscore.text = scoreosom.toString()
             binding.playerscore.text = scoreplayer.toString()
         }
+
+        //===================================================================================================================
 
         binding.paper.setOnClickListener {
             var osom = 0
@@ -292,14 +302,10 @@ class PlayActivity : AppCompatActivity() {
                     dialogL.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                     val btngive: Button = dialogL.findViewById(R.id.give)
                     btngive.setOnClickListener {
-                        //reset
-                        scoreplayer = 0
-                        scoreosom = 0
-                        round = 1
-                        multiplier = 2
-                        val intent = Intent(this, HomeActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                        //give coin to osom
+                        coinforosom(bet)
+                        //update coin lose and reset then intent
+                        updateCoin(coin)
                     }
                     dialogL.show()
                 }
@@ -343,14 +349,10 @@ class PlayActivity : AppCompatActivity() {
                         dialogW.dismiss()
                     }
                     btntake.setOnClickListener {
-                        //reset
-                        scoreplayer = 0
-                        scoreosom = 0
-                        round = 1
-                        multiplier = 2
-                        val intent = Intent(this, HomeActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                        //calculating and update
+                        coin = calculating(coin, bet, multiplier)
+                        Log.d("check", "coin after calculate $coin")
+                        updateCoin(coin)
                     }
                     dialogW.show()
                 }
@@ -360,6 +362,8 @@ class PlayActivity : AppCompatActivity() {
             binding.osomscore.text = scoreosom.toString()
             binding.playerscore.text = scoreplayer.toString()
         }
+
+        //============================================================================================================================
 
         binding.scissor.setOnClickListener {
             var osom = 0
@@ -442,14 +446,10 @@ class PlayActivity : AppCompatActivity() {
                     dialogL.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                     val btngive: Button = dialogL.findViewById(R.id.give)
                     btngive.setOnClickListener {
-                        //reset
-                        scoreplayer = 0
-                        scoreosom = 0
-                        round = 1
-                        multiplier = 2
-                        val intent = Intent(this, HomeActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                        //give coin to osom
+                        coinforosom(bet)
+                        //update coin lose and reset then intent
+                        updateCoin(coin)
                     }
                     dialogL.show()
                 }
@@ -493,14 +493,10 @@ class PlayActivity : AppCompatActivity() {
                         dialogW.dismiss()
                     }
                     btntake.setOnClickListener {
-                        //reset
-                        scoreplayer = 0
-                        scoreosom = 0
-                        round = 1
-                        multiplier = 2
-                        val intent = Intent(this, HomeActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                        //calculating and update
+                        coin = calculating(coin, bet, multiplier)
+                        Log.d("check", "coin after calculate $coin")
+                        updateCoin(coin)
                     }
                     dialogW.show()
                 }
@@ -529,7 +525,7 @@ class PlayActivity : AppCompatActivity() {
         return rand
     }
 
-    fun startblinktext(textView: TextView) {
+    private fun startblinktext(textView: TextView) {
         val colors = intArrayOf(
             Color.parseColor("#D8EEFE"), Color.parseColor("#094067"))
         var colorIndex = 0
@@ -543,5 +539,74 @@ class PlayActivity : AppCompatActivity() {
         }
         textView.setShadowLayer(2f, 1f, 1f, Color.BLACK)
         handler.post(runnable)
+    }
+
+    private fun calculating(coin : Int, bet : Int , multiplier : Int): Int {
+        val x = multiplier - 1
+        var result = bet * x
+        Log.d("check", "result perkalian calculate $result")
+        Log.d("check", "multiplier calculate $x")
+        result += coin
+        Log.d("check", "result pertambahan calculate $result")
+        return result
+    }
+
+    private fun reset(){
+        //reset
+        scoreplayer = 0
+        scoreosom = 0
+        round = 1
+        multiplier = 2
+    }
+
+    private fun updateCoin(coin : Int){
+        //SET SHARED PREFERENCE
+        val sharedPreferences = getSharedPreferences("osom", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val email = sharedPreferences.getString("email","")
+        val username = sharedPreferences.getString("username", "")
+        val query = "eq.$email"
+        val data = dataProfile(username = username!!, coin = coin, email = email!!)
+        CoroutineScope(Dispatchers.Main).launch {
+            val response = apiProfile.update(apiKey = apikey, token = token, query = query, data = data)
+        }
+        editor.putInt("coin",coin)
+        editor.apply()
+        reset()
+        val intent = Intent(this, HomeActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+    }
+
+    private fun coinforosom(coinbet : Int) {
+        //SET SHARED PREFERENCE
+        val sharedPreferences = getSharedPreferences("osom", Context.MODE_PRIVATE)
+        val id = sharedPreferences.getString("id","")
+        val query = "eq.$id"
+        var coin = 0
+        CoroutineScope(Dispatchers.Main).launch {
+            val responseget = apiOsom.get(token = token, apiKey = apikey, query = query)
+            responseget.body()?.forEach{
+                coin = it.coin
+            }
+            var total = coin + coinbet
+            val data = dataOsom(coin = total)
+            val responseupdate = apiOsom.update(token = token, apiKey = apikey, query = query, data = data)
+        }
+    }
+
+
+    override fun onBackPressed() {
+        vibratePhone()
+    }
+
+    private fun vibratePhone() {
+        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+
+        // Check if the device has a vibrator
+        if (vibrator.hasVibrator()) {
+            // Vibrate for 500 milliseconds (0.5 seconds)
+            vibrator.vibrate(500)
+        }
     }
 }
