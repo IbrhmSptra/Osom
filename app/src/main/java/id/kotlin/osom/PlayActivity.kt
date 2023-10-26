@@ -44,6 +44,7 @@ class PlayActivity : AppCompatActivity() {
     var round = 1
     var notif = "none"
     var coin = 0
+    var homecheat = true
 
 
 
@@ -554,6 +555,7 @@ class PlayActivity : AppCompatActivity() {
         scoreosom = 0
         round = 1
         multiplier = 2
+        homecheat = false
     }
 
     private fun updateCoin(coin : Int){
@@ -607,23 +609,17 @@ class PlayActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        coin = intent.getIntExtra("coin",0)
-        var bet = intent.getIntExtra("bet",0)
-        //coin for osom
-        coinforosom(bet)
-        //update coin
-        updateCoin(coin)
-        super.onDestroy()
-    }
+
 
     override fun onStop() {
-        coin = intent.getIntExtra("coin",0)
-        var bet = intent.getIntExtra("bet",0)
-        //coin for osom
-        coinforosom(bet)
-        //update coin
-        updateCoin(coin)
+        if (homecheat){
+            coin = intent.getIntExtra("coin",0)
+            var bet = intent.getIntExtra("bet",0)
+            //coin for osom
+            coinforosom(bet)
+            //update coin
+            updateCoin(coin)
+        }
         super.onStop()
     }
 }
