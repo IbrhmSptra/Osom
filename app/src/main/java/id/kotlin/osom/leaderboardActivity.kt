@@ -1,7 +1,6 @@
 package id.kotlin.osom
 
 import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,7 +12,9 @@ import id.kotlin.osom.databinding.ActivityLeaderboardBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.create
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class leaderboardActivity : AppCompatActivity() {
 
@@ -61,7 +62,7 @@ class leaderboardActivity : AppCompatActivity() {
                 dataLeaderboard.add(
                     dataLeaderboard(
                         username = it.username,
-                        coin = it.coin!!
+                        coin = NumberFormat.getNumberInstance(Locale.getDefault()).format(it.coin)
                     )
                 )
             }

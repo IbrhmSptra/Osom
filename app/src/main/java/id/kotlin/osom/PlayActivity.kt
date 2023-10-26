@@ -204,7 +204,6 @@ class PlayActivity : AppCompatActivity() {
                     btntake.setOnClickListener {
                         //calculating and update
                         coin = calculating(coin, bet, multiplier)
-                        Log.d("check", "coin after calculate $coin")
                         updateCoin(coin)
                     }
                     dialogW.show()
@@ -351,7 +350,6 @@ class PlayActivity : AppCompatActivity() {
                     btntake.setOnClickListener {
                         //calculating and update
                         coin = calculating(coin, bet, multiplier)
-                        Log.d("check", "coin after calculate $coin")
                         updateCoin(coin)
                     }
                     dialogW.show()
@@ -495,7 +493,6 @@ class PlayActivity : AppCompatActivity() {
                     btntake.setOnClickListener {
                         //calculating and update
                         coin = calculating(coin, bet, multiplier)
-                        Log.d("check", "coin after calculate $coin")
                         updateCoin(coin)
                     }
                     dialogW.show()
@@ -608,5 +605,25 @@ class PlayActivity : AppCompatActivity() {
             // Vibrate for 500 milliseconds (0.5 seconds)
             vibrator.vibrate(500)
         }
+    }
+
+    override fun onDestroy() {
+        coin = intent.getIntExtra("coin",0)
+        var bet = intent.getIntExtra("bet",0)
+        //coin for osom
+        coinforosom(bet)
+        //update coin
+        updateCoin(coin)
+        super.onDestroy()
+    }
+
+    override fun onStop() {
+        coin = intent.getIntExtra("coin",0)
+        var bet = intent.getIntExtra("bet",0)
+        //coin for osom
+        coinforosom(bet)
+        //update coin
+        updateCoin(coin)
+        super.onStop()
     }
 }

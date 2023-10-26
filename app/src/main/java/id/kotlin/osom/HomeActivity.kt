@@ -22,6 +22,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import java.lang.Integer.parseInt
+import java.text.NumberFormat
+import java.util.*
 
 class HomeActivity : AppCompatActivity() {
     lateinit var binding: ActivityHomeBinding
@@ -62,7 +64,9 @@ class HomeActivity : AppCompatActivity() {
                 editor.putInt("coin",it.coin.toString().toInt())
                 editor.commit()
             }
-            binding.coin.text = sharedPreferences.getInt("coin",0).toString()
+            var coin = sharedPreferences.getInt("coin",0)
+            val format = NumberFormat.getNumberInstance(Locale.getDefault()).format(coin)
+            binding.coin.text = format
         }
 
         //BUTTON LEADERBOARD
@@ -168,7 +172,17 @@ class HomeActivity : AppCompatActivity() {
     override fun onResume() {
         //SET SHARED PREFERENCE
         val sharedPreferences = getSharedPreferences("osom", Context.MODE_PRIVATE)
-        binding.coin.text = sharedPreferences.getInt("coin",0).toString()
+        var username = sharedPreferences.getString("username","").toString()
+        val query = "eq.$username"
+        CoroutineScope(Dispatchers.Main).launch {
+            var coin = 0
+            val response = apiProfile.getusername(apiKey = apikey, token = token, query = query)
+            response.body()?.forEach {
+                coin = it.coin.toString().toInt()
+            }
+            val format = NumberFormat.getNumberInstance(Locale.getDefault()).format(coin)
+            binding.coin.text = format
+        }
         super.onResume()
     }
 
