@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -32,6 +33,8 @@ class HomeActivity : AppCompatActivity() {
     val apikey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpdWlocG51bG95anV1eWxycW9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc0NDkxNzAsImV4cCI6MjAxMzAyNTE3MH0.A6pRhyENfgjKJnNG9o15J2__ljDtjdEOrxgBnpzR5tE"
     val token = "Bearer $apikey"
     val apiProfile = RetorfitHelper.getInstance().create(API_profile::class.java)
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,16 +64,19 @@ class HomeActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             val response = apiProfile.getusername(apiKey = apikey, token = token, query = query)
             response.body()?.forEach{
-                editor.putInt("coin",it.coin.toString().toInt())
+                editor.putLong("coin",it.coin.toString().toLong())
                 editor.commit()
             }
-            var coin = sharedPreferences.getInt("coin",0)
+            var coin = sharedPreferences.getLong("coin",0)
             val format = NumberFormat.getNumberInstance(Locale.getDefault()).format(coin)
             binding.coin.text = format
         }
 
         //BUTTON LEADERBOARD
         binding.leaderboard.setOnClickListener {
+            //sfx
+            val clicksound = MediaPlayer.create(this, R.raw.click)
+            clicksound.start()
             val intent = Intent(this, leaderboardActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
@@ -78,6 +84,9 @@ class HomeActivity : AppCompatActivity() {
 
         // BUTTON LOGOUT
         binding.logout.setOnClickListener {
+            //sfx
+            val clicksound = MediaPlayer.create(this, R.raw.click)
+            clicksound.start()
             val dialog = Dialog(this)
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.setCancelable(true)
@@ -87,6 +96,9 @@ class HomeActivity : AppCompatActivity() {
             val btnlogout: Button = dialog.findViewById(R.id.logout)
 
             btnlogout.setOnClickListener {
+                //sfx
+                val click = MediaPlayer.create(this, R.raw.click)
+                click.start()
                 editor?.clear()
                 editor.remove("email")
                 editor.remove("username")
@@ -99,6 +111,9 @@ class HomeActivity : AppCompatActivity() {
                 finish()
             }
             btncancel.setOnClickListener {
+                //sfx
+                val click = MediaPlayer.create(this, R.raw.click)
+                click.start()
                 dialog.dismiss()
             }
             dialog.show()
@@ -117,6 +132,9 @@ class HomeActivity : AppCompatActivity() {
 
         //PLAY
         binding.playbtn.setOnClickListener {
+            //sfx
+            val clicksound = MediaPlayer.create(this, R.raw.click)
+            clicksound.start()
             //bet cannot be null
             if (binding.betingcoin.text.isNullOrEmpty()) {
                 Toast.makeText(this, "Insert Your Coin First", Toast.LENGTH_SHORT).show()
@@ -124,13 +142,13 @@ class HomeActivity : AppCompatActivity() {
             }
 
             //get coin and bet
-            var bet = binding.betingcoin.text.toString().toInt()
-            var coin = 0
+            var bet = binding.betingcoin.text.toString().toLong()
+            var coin : Long = 0
             val query = "eq.$username"
             CoroutineScope(Dispatchers.Main).launch {
                 val response = apiProfile.getusername(apiKey = apikey, token = token, query = query)
                 response.body()?.forEach{
-                    coin = it.coin.toString().toInt()
+                    coin = it.coin.toString().toLong()
                 }
                 // bet cannot be more than coin
                 if (bet>coin){
@@ -141,9 +159,7 @@ class HomeActivity : AppCompatActivity() {
 
                     val intent = Intent(this@HomeActivity, PlayActivity::class.java)
                     intent.putExtra("coin", coin)
-                    Log.d("check", "Coin lemparan $coin")
                     intent.putExtra("bet", bet)
-                    Log.d("check", "bet lemparan $bet")
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     startActivity(intent)
                 }
@@ -152,6 +168,9 @@ class HomeActivity : AppCompatActivity() {
 
         //HELP
         binding.help.setOnClickListener {
+            //sfx
+            val clicksound = MediaPlayer.create(this, R.raw.click)
+            clicksound.start()
             val intent = Intent(this, HelpActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
@@ -162,7 +181,7 @@ class HomeActivity : AppCompatActivity() {
         var rand = (1..5).random()
         when (rand) {
             1 -> binding.msghome.text = "Pala lo sini gw genjreng!"
-            2 -> binding.msghome.text = "Janganlah berjudi dengan uang asli sesungguhnya itu haram"
+            2 -> binding.msghome.text = "Khaarrkk kur kur kur kur..."
             3 -> binding.msghome.text = "You cant defeat me!! Muehehehe.."
             4 -> binding.msghome.text = "Spend all of your coins to me.."
             5 -> binding.msghome.text = "Money!! Money!! Money!!"
@@ -170,15 +189,16 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
+
         //SET SHARED PREFERENCE
         val sharedPreferences = getSharedPreferences("osom", Context.MODE_PRIVATE)
         var username = sharedPreferences.getString("username","").toString()
         val query = "eq.$username"
         CoroutineScope(Dispatchers.Main).launch {
-            var coin = 0
+            var coin : Long = 0
             val response = apiProfile.getusername(apiKey = apikey, token = token, query = query)
             response.body()?.forEach {
-                coin = it.coin.toString().toInt()
+                coin = it.coin.toString().toLong()
             }
             val format = NumberFormat.getNumberInstance(Locale.getDefault()).format(coin)
             binding.coin.text = format

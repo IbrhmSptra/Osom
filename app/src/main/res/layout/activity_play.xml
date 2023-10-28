@@ -148,11 +148,12 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/poppinsemibold"
                 android:padding="@dimen/_3sdp"
-                android:text="Paturicku"
+                android:text=""
                 android:textAlignment="center"
                 android:textColor="@color/headings"
                 android:textSize="@dimen/_12sdp" />

@@ -7,6 +7,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.ColorDrawable
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -27,6 +28,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import android.os.Vibrator
+import android.widget.Toast
 import id.kotlin.osom.CoinOsomAPI.API_osom
 import id.kotlin.osom.CoinOsomAPI.dataOsom
 
@@ -43,7 +45,7 @@ class PlayActivity : AppCompatActivity() {
     var multiplier = 2
     var round = 1
     var notif = "none"
-    var coin = 0
+    var coin : Long = 0
     var homecheat = true
 
 
@@ -53,9 +55,17 @@ class PlayActivity : AppCompatActivity() {
         //init
         binding = ActivityPlayBinding.inflate(layoutInflater)
         val view = binding.root
-        coin = intent.getIntExtra("coin",0)
-        var bet = intent.getIntExtra("bet",0)
+        coin = intent.getLongExtra("coin",0)
+        var bet = intent.getLongExtra("bet",0)
+        //sfx
+        val win = MediaPlayer.create(this, R.raw.popsfx)
+        val lose = MediaPlayer.create(this, R.raw.wrongsfx)
+
         setContentView(view)
+
+        //sync player name
+        val sharedPreferences = getSharedPreferences("osom", Context.MODE_PRIVATE)
+        binding.username.text = sharedPreferences.getString("username","")
 
         // sync the multiplier and score
         binding.playerscore.text = scoreplayer.toString()
@@ -76,6 +86,7 @@ class PlayActivity : AppCompatActivity() {
 
         //LOGIC GAME
         binding.rock.setOnClickListener {
+            //Shuffle
             var osom = 0
             for (i in 1..5) {
                 osom = osompick()
@@ -96,10 +107,12 @@ class PlayActivity : AppCompatActivity() {
                 binding.modelexpression.setImageResource(R.drawable.why)
             }
             if (notif.equals("win")){
+                win.start()
                 binding.notif.setImageResource(R.drawable.win)
                 binding.modelexpression.setImageResource(R.drawable.sad)
             }
             if (notif.equals("lose")){
+                lose.start()
                 binding.notif.setImageResource(R.drawable.lose)
                 binding.modelexpression.setImageResource(R.drawable.yeay)
             }
@@ -124,6 +137,7 @@ class PlayActivity : AppCompatActivity() {
             binding.playerpick.setImageResource(R.drawable.chooserock)
             binding.playerpick.visibility = View.VISIBLE
 
+            //Delay
             Handler().postDelayed({
                 //show player pick
                 binding.rock.visibility = View.VISIBLE
@@ -155,6 +169,8 @@ class PlayActivity : AppCompatActivity() {
                     dialogL.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                     val btngive: Button = dialogL.findViewById(R.id.give)
                     btngive.setOnClickListener {
+                        val click = MediaPlayer.create(this, R.raw.click)
+                        click.start()
                         //give coin to osom
                         coinforosom(bet)
                         //update coin lose and reset then intent
@@ -189,6 +205,8 @@ class PlayActivity : AppCompatActivity() {
                     }
                     btnmore.text = "x$multiplier"
                     btnmore.setOnClickListener {
+                        val click = MediaPlayer.create(this, R.raw.click)
+                        click.start()
                         scoreplayer = 0
                         scoreosom = 0
                         binding.playerscore.text = scoreplayer.toString()
@@ -203,6 +221,8 @@ class PlayActivity : AppCompatActivity() {
                         dialogW.dismiss()
                     }
                     btntake.setOnClickListener {
+                        val click = MediaPlayer.create(this, R.raw.click)
+                        click.start()
                         //calculating and update
                         coin = calculating(coin, bet, multiplier)
                         updateCoin(coin)
@@ -240,10 +260,12 @@ class PlayActivity : AppCompatActivity() {
                 binding.modelexpression.setImageResource(R.drawable.why)
             }
             if (notif.equals("win")){
+                win.start()
                 binding.notif.setImageResource(R.drawable.win)
                 binding.modelexpression.setImageResource(R.drawable.sad)
             }
             if (notif.equals("lose")){
+                lose.start()
                 binding.notif.setImageResource(R.drawable.lose)
                 binding.modelexpression.setImageResource(R.drawable.yeay)
             }
@@ -302,6 +324,8 @@ class PlayActivity : AppCompatActivity() {
                     dialogL.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                     val btngive: Button = dialogL.findViewById(R.id.give)
                     btngive.setOnClickListener {
+                        val click = MediaPlayer.create(this, R.raw.click)
+                        click.start()
                         //give coin to osom
                         coinforosom(bet)
                         //update coin lose and reset then intent
@@ -335,6 +359,8 @@ class PlayActivity : AppCompatActivity() {
                     }
                     btnmore.text = "x$multiplier"
                     btnmore.setOnClickListener {
+                        val click = MediaPlayer.create(this, R.raw.click)
+                        click.start()
                         scoreplayer = 0
                         scoreosom = 0
                         binding.playerscore.text = scoreplayer.toString()
@@ -349,6 +375,8 @@ class PlayActivity : AppCompatActivity() {
                         dialogW.dismiss()
                     }
                     btntake.setOnClickListener {
+                        val click = MediaPlayer.create(this, R.raw.click)
+                        click.start()
                         //calculating and update
                         coin = calculating(coin, bet, multiplier)
                         updateCoin(coin)
@@ -385,10 +413,12 @@ class PlayActivity : AppCompatActivity() {
                 binding.modelexpression.setImageResource(R.drawable.why)
             }
             if (notif.equals("win")){
+                win.start()
                 binding.notif.setImageResource(R.drawable.win)
                 binding.modelexpression.setImageResource(R.drawable.sad)
             }
             if (notif.equals("lose")){
+                lose.start()
                 binding.notif.setImageResource(R.drawable.lose)
                 binding.modelexpression.setImageResource(R.drawable.yeay)
             }
@@ -445,6 +475,8 @@ class PlayActivity : AppCompatActivity() {
                     dialogL.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                     val btngive: Button = dialogL.findViewById(R.id.give)
                     btngive.setOnClickListener {
+                        val click = MediaPlayer.create(this, R.raw.click)
+                        click.start()
                         //give coin to osom
                         coinforosom(bet)
                         //update coin lose and reset then intent
@@ -478,6 +510,8 @@ class PlayActivity : AppCompatActivity() {
                     }
                     btnmore.text = "x$multiplier"
                     btnmore.setOnClickListener {
+                        val click = MediaPlayer.create(this, R.raw.click)
+                        click.start()
                         scoreplayer = 0
                         scoreosom = 0
                         binding.playerscore.text = scoreplayer.toString()
@@ -492,6 +526,8 @@ class PlayActivity : AppCompatActivity() {
                         dialogW.dismiss()
                     }
                     btntake.setOnClickListener {
+                        val click = MediaPlayer.create(this, R.raw.click)
+                        click.start()
                         //calculating and update
                         coin = calculating(coin, bet, multiplier)
                         updateCoin(coin)
@@ -539,7 +575,7 @@ class PlayActivity : AppCompatActivity() {
         handler.post(runnable)
     }
 
-    private fun calculating(coin : Int, bet : Int , multiplier : Int): Int {
+    private fun calculating(coin : Long, bet : Long , multiplier : Int): Long {
         val x = multiplier - 1
         var result = bet * x
         Log.d("check", "result perkalian calculate $result")
@@ -558,7 +594,7 @@ class PlayActivity : AppCompatActivity() {
         homecheat = false
     }
 
-    private fun updateCoin(coin : Int){
+    private fun updateCoin(coin : Long){
         //SET SHARED PREFERENCE
         val sharedPreferences = getSharedPreferences("osom", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -569,7 +605,7 @@ class PlayActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             val response = apiProfile.update(apiKey = apikey, token = token, query = query, data = data)
         }
-        editor.putInt("coin",coin)
+        editor.putLong("coin",coin)
         editor.apply()
         reset()
         val intent = Intent(this, HomeActivity::class.java)
@@ -577,12 +613,12 @@ class PlayActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun coinforosom(coinbet : Int) {
+    private fun coinforosom(coinbet : Long) {
         //SET SHARED PREFERENCE
         val sharedPreferences = getSharedPreferences("osom", Context.MODE_PRIVATE)
         val id = sharedPreferences.getString("id","")
         val query = "eq.$id"
-        var coin = 0
+        var coin :Long = 0
         CoroutineScope(Dispatchers.Main).launch {
             val responseget = apiOsom.get(token = token, apiKey = apikey, query = query)
             responseget.body()?.forEach{
@@ -597,6 +633,7 @@ class PlayActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         vibratePhone()
+        Toast.makeText(this, "Nope, You Cant Do That!", Toast.LENGTH_SHORT).show()
     }
 
     private fun vibratePhone() {
@@ -605,7 +642,7 @@ class PlayActivity : AppCompatActivity() {
         // Check if the device has a vibrator
         if (vibrator.hasVibrator()) {
             // Vibrate for 500 milliseconds (0.5 seconds)
-            vibrator.vibrate(500)
+            vibrator.vibrate(300)
         }
     }
 
@@ -613,8 +650,8 @@ class PlayActivity : AppCompatActivity() {
 
     override fun onStop() {
         if (homecheat){
-            coin = intent.getIntExtra("coin",0)
-            var bet = intent.getIntExtra("bet",0)
+            coin = intent.getLongExtra("coin",0)
+            var bet = intent.getLongExtra("bet",0)
             //coin for osom
             coinforosom(bet)
             //update coin

@@ -16,10 +16,7 @@ class SplashScreen : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("osom", Context.MODE_PRIVATE)
         val session = sharedPreferences.getString("email","").toString()
 
-        //PUT STRING FOR ID OSOM
-        val editor = sharedPreferences.edit()
-        editor.putString("id","1")
-        editor.commit()
+
 
         Handler().postDelayed({
             if (session.isNullOrEmpty()){

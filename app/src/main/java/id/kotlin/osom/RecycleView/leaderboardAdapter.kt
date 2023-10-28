@@ -14,6 +14,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import id.kotlin.osom.R
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class leaderboardAdapter (private val userlist : ArrayList<dataLeaderboard>, private val context: Context)
     : RecyclerView.Adapter<leaderboardAdapter.leaderboardviewholder>() {
@@ -36,7 +39,7 @@ class leaderboardAdapter (private val userlist : ArrayList<dataLeaderboard>, pri
         val user = userlist[position]
         holder.rank.text = (position + 1).toString()
         holder.username.text = user.username
-        holder.coin.text = user.coin.toString()
+        holder.coin.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(user.coin)
         if (username == user.username){
             holder.card.setBackgroundResource(R.drawable.shaperc)
         }

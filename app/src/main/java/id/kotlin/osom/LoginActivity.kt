@@ -2,6 +2,7 @@ package id.kotlin.osom
 
 import android.content.Context
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -28,14 +29,22 @@ class LoginActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+
+
         //login
         binding.loginbtn.setOnClickListener {
+            //sfc
+            val click = MediaPlayer.create(this, R.raw.click)
+            click.start()
             var email = binding.loginemail.text.toString()
             var password = binding.loginpassword.text.toString()
             signIn(email,password)
         }
 
         binding.registerhere.setOnClickListener {
+            //sfc
+            val click = MediaPlayer.create(this, R.raw.click)
+            click.start()
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }

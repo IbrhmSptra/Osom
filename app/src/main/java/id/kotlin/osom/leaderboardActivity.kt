@@ -1,6 +1,7 @@
 package id.kotlin.osom
 
 import android.content.Context
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,21 +34,22 @@ class leaderboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityLeaderboardBinding.inflate(layoutInflater)
         val view = binding.root
+        //sfx
+        val clicksound = MediaPlayer.create(this, R.raw.click)
 
 
         //back btn
         binding.back.setOnClickListener {
+            clicksound.start()
             onBackPressed()
         }
 
-        //fetch coin for osom
-        val sharedPreferences = getSharedPreferences("osom", Context.MODE_PRIVATE)
-        val idosom = sharedPreferences.getString("id","")
+
         CoroutineScope(Dispatchers.Main).launch {
-            val query = "eq.$idosom"
+            val query = "eq.1"
             val response = apiOsom.get(token = token, apiKey = apikey, query = query)
             response.body()?.forEach {
-                binding.coinosom.text = it.coin.toString()
+                binding.coinosom.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(it.coin)
             }
         }
 
@@ -62,7 +64,7 @@ class leaderboardActivity : AppCompatActivity() {
                 dataLeaderboard.add(
                     dataLeaderboard(
                         username = it.username,
-                        coin = NumberFormat.getNumberInstance(Locale.getDefault()).format(it.coin)
+                        coin = it.coin.toString().toLong()
                     )
                 )
             }

@@ -2,5 +2,5 @@ package id.kotlin.osom.RecycleView
 
 data class dataLeaderboard(
     val username: String,
-    val coin: String,
+    val coin: Long,
 )

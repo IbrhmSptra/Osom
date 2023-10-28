@@ -1,6 +1,7 @@
 package id.kotlin.osom
 
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -30,8 +31,13 @@ class RegisterActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+
+
         //register
         binding.registerbtn.setOnClickListener {
+            //sfx
+            val click = MediaPlayer.create(this, R.raw.click)
+            click.start()
             CoroutineScope(Dispatchers.Main).launch {
                 var email = binding.regemail.text.toString()
                 var username = binding.regusername.text.toString()
@@ -82,6 +88,9 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         binding.loginhere.setOnClickListener {
+            //sfx
+            val click = MediaPlayer.create(this, R.raw.click)
+            click.start()
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
 
