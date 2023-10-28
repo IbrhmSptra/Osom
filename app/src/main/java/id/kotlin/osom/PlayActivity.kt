@@ -597,7 +597,6 @@ class PlayActivity : AppCompatActivity() {
     private fun updateCoin(coin : Long){
         //SET SHARED PREFERENCE
         val sharedPreferences = getSharedPreferences("osom", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
         val email = sharedPreferences.getString("email","")
         val username = sharedPreferences.getString("username", "")
         val query = "eq.$email"
@@ -605,8 +604,6 @@ class PlayActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             val response = apiProfile.update(apiKey = apikey, token = token, query = query, data = data)
         }
-        editor.putLong("coin",coin)
-        editor.apply()
         reset()
         val intent = Intent(this, HomeActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -614,10 +611,7 @@ class PlayActivity : AppCompatActivity() {
     }
 
     private fun coinforosom(coinbet : Long) {
-        //SET SHARED PREFERENCE
-        val sharedPreferences = getSharedPreferences("osom", Context.MODE_PRIVATE)
-        val id = sharedPreferences.getString("id","")
-        val query = "eq.$id"
+        val query = "eq.1"
         var coin :Long = 0
         CoroutineScope(Dispatchers.Main).launch {
             val responseget = apiOsom.get(token = token, apiKey = apikey, query = query)

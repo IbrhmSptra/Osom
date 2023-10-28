@@ -62,12 +62,11 @@ class HomeActivity : AppCompatActivity() {
         //SET COIN
         val query = "eq.$username"
         CoroutineScope(Dispatchers.Main).launch {
+            var coin : Long = 0
             val response = apiProfile.getusername(apiKey = apikey, token = token, query = query)
             response.body()?.forEach{
-                editor.putLong("coin",it.coin.toString().toLong())
-                editor.commit()
+                coin = it.coin.toString().toLong()
             }
-            var coin = sharedPreferences.getLong("coin",0)
             val format = NumberFormat.getNumberInstance(Locale.getDefault()).format(coin)
             binding.coin.text = format
         }
@@ -102,7 +101,6 @@ class HomeActivity : AppCompatActivity() {
                 editor?.clear()
                 editor.remove("email")
                 editor.remove("username")
-                editor.remove("coin")
                 editor.commit()
 
                 // INTENT KE LOGIN
