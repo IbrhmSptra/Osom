@@ -43,9 +43,8 @@ Osom is an android mobile-based paper rock scissors game with additional betting
 ![Leaderboard](https://i.postimg.cc/Kcf5G9Nh/leaderboard.jpg)
 
 
-
 ## Demo
-![demoosom](https://github.com/IbrhmSptra/Osom/assets/102981991/febb61c9-79b8-4564-9069-02af53bf5ea5)
+![ezgif com-video-to-gif](https://github.com/IbrhmSptra/Osom/assets/102981991/a5234c78-cdf0-4477-ba37-84ecea2fbdc1)
 
 
 ## Tech
