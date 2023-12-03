@@ -4,7 +4,7 @@
 Osom is an android mobile-based paper rock scissors game with additional betting elements. Players will be provided with 100 coins and the coins will be used to bet when the player starts the game. If the player wins, the coin will be doubled if the player loses, the coin that is bet will be lost.
 
 
-![Logo](https://i.postimg.cc/bNpJrqWy/Group-21.png)
+![Logo](https://i.postimg.cc/BQYB4tnC/Portfolio-osom.png)
 
 
 ## Screenshots
